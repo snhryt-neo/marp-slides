@@ -1,0 +1,720 @@
+/* @theme enpitsu-choice */
+
+/*
+  Marp テーマ "えんぴつチョイス"
+  template.potx を元に作成
+
+  カラーパレット:
+    アクセント1(赤)  : #E61C10
+    アクセント2(青)  : #0096FF
+    アクセント3(黄)  : #FFD478
+    テキスト         : #494949
+    背景             : #FFFFFF
+    セクション背景   : #E7E6E6
+
+  フォント:
+    見出し: Tsukushi A Round Gothic Bold → メイリオ fallback
+    本文 : Tsukushi A Round Gothic Regular → メイリオ fallback
+*/
+
+/* ========================================================
+   CSS カスタムプロパティ
+======================================================== */
+:root {
+  --bg:          #ffffff;
+  --text:        #494949;
+  --section-bg:  #E7E6E6;
+  --accent1:     #E61C10;
+  --accent2:     #0096FF;
+  --accent3:     #FFD478;
+  --accent4:     #008F51;
+  --accent5:     #FF89D8;
+  --accent6:     #FF9300;
+
+  --font-title: 'Tsukushi A Round Gothic Bold',
+                'A-OTF Tsukushi A Round Gothic Std Bold',
+                'M PLUS Rounded 1c',
+                'Rounded Mplus 1c',
+                メイリオ, Meiryo,
+                'Hiragino Sans',
+                'Yu Gothic', sans-serif;
+
+  --font-body:  'Tsukushi A Round Gothic Regular',
+                'A-OTF Tsukushi A Round Gothic Std Regular',
+                'M PLUS Rounded 1c',
+                'Rounded Mplus 1c',
+                メイリオ, Meiryo,
+                'Hiragino Sans',
+                'Yu Gothic', sans-serif;
+
+  /* 区切り線のパターンサイズ（1セグメント = 約66px × 3色） */
+  --separator-tile: 198px;
+}
+
+/* ========================================================
+   ベーススライド（コンテンツスライド）
+======================================================== */
+section {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 28px;
+  line-height: 1.5;
+  /* タイトル(84px) + 区切り線(4px) + 余白(28px) = 116px */
+  padding: 116px 55px 55px 90px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+}
+
+/* ── コンテンツスライド装飾（左上三角形クラスタ ＋ 区切り線） ── */
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background-image:
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCI+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgOTguNjUsODQuOSAwLDg0LjkiIGZpbGw9IiMwMDk2RkYiIGZpbGwtb3BhY2l0eT0iMC42OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzgsMzgpIHJvdGF0ZSg2Ni4yNykgdHJhbnNsYXRlKC0zMi44OCwtNTYuNjApIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgOTYuOTUsOTIuMjUgMCw5Mi4yNSIgZmlsbD0iI0U2MUMxMCIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1MCw3OCkgcm90YXRlKDM0OC45OCkgdHJhbnNsYXRlKC0zMi4zMiwtNjEuNTApIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgNjguMDUsODcuMTUgMCw4Ny4xNSIgZmlsbD0iI0ZGRDQ3OCIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3Miw1NSkgcm90YXRlKDMyNi41NSkgdHJhbnNsYXRlKC0yMi42OCwtNTguMTApIi8+Cjwvc3ZnPg=="),
+    repeating-linear-gradient(
+      to right,
+      var(--accent1) 0,          var(--accent1) 33.33%,
+      var(--accent2) 33.33%,     var(--accent2) 66.67%,
+      var(--accent3) 66.67%,     var(--accent3) 100%
+    );
+
+  background-size:
+    1280px 720px,
+    1170px 4px;
+
+  background-position:
+    -28px 0,
+    55px 80px;
+
+  background-repeat:
+    no-repeat,
+    no-repeat;
+}
+
+/* ── スライド番号（右上） ── */
+section::after {
+  content: attr(data-marpit-pagination);
+  position: absolute;
+  top: 19px;
+  right: 18px;
+  width: 40px;
+  height: 42px;
+  line-height: 42px;
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+/* ========================================================
+   タイトル見出し（h1）
+======================================================== */
+section h1 {
+  position: absolute;
+  top: 19px;
+  left: 90px;
+  right: 70px;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-title);
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--text);
+  line-height: 1.15;
+  z-index: 2;
+  /* border-bottom で区切り線を表現（::before のグラデーションと二重にならないよう透明） */
+  border: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ========================================================
+   本文・リスト
+======================================================== */
+section p {
+  margin: 0 0 14px;
+  font-size: 28px;
+  z-index: 2;
+  position: relative;
+}
+
+section ul,
+section ol {
+  margin: 0 0 14px;
+  padding-left: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+section li {
+  font-size: 28px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+section li > ul,
+section li > ol {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+section li li {
+  font-size: 24px;
+}
+
+section li li li {
+  font-size: 20px;
+}
+
+/* ========================================================
+   小見出し（h2）
+======================================================== */
+section h2 {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-title);
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text);
+  margin: 0 0 14px;
+  padding: 0;
+  border: none;
+  line-height: 1.3;
+}
+
+section h2::before {
+  content: "■";
+  margin-right: 0.28em;
+}
+
+/* ========================================================
+   テーブル
+======================================================== */
+section table {
+  border-collapse: collapse;
+  font-size: 24px;
+  position: relative;
+  z-index: 2;
+  border: 1px solid #c0c0c0;
+}
+
+section th {
+  background-color: #f0f0f0;
+  color: var(--text);
+  padding: 8px 18px;
+  font-weight: bold;
+  font-family: var(--font-title);
+  border: 1px solid #c0c0c0;
+  text-align: center;
+}
+
+section td {
+  border: 1px solid #d0d0d0;
+  padding: 6px 18px;
+}
+
+section tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+section table.compare-table {
+  width: 100%;
+  table-layout: fixed;
+  border: none;
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+section table.compare-table th {
+  background: #dedede;
+  border: none;
+  border-top: none;
+  border-bottom: 1.5px solid #53677a;
+  color: var(--text);
+  font-size: 20px;
+  padding: 8px 8px;
+}
+
+section table.compare-table th:nth-child(1) {
+  width: 15%;
+}
+
+section table.compare-table th:nth-child(2) {
+  width: 25%;
+}
+
+section table.compare-table td {
+  border: none;
+  border-bottom: 1px solid #c4d2df;
+  border-left: none;
+  border-right: none;
+  padding: 8px 8px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+section table.compare-table .result {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+section table.compare-table .reason {
+  display: block;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+section table.compare-table .good {
+  color: var(--accent2);
+}
+
+section table.compare-table .neutral {
+  color: #555;
+}
+
+section table.compare-table .bad {
+  color: var(--accent1);
+}
+
+/* ========================================================
+   コード
+======================================================== */
+section code {
+  font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
+  background: var(--section-bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+section pre {
+  position: relative;
+  z-index: 2;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid var(--accent2);
+  border-radius: 0 6px 6px 0;
+  padding: 18px 20px;
+  margin: 12px 0;
+  font-size: 22px;
+  overflow: hidden;
+}
+
+section pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+  border-radius: 0;
+}
+
+/* ========================================================
+   インライン装飾
+======================================================== */
+section strong {
+  color: var(--accent1);
+  font-weight: bold;
+}
+
+section em {
+  color: var(--accent2);
+  font-style: italic;
+}
+
+section a {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+.text-blue {
+  color: var(--accent2);
+  font-weight: bold;
+}
+
+.text-yellow {
+  color: var(--accent3);
+  font-weight: bold;
+}
+
+.text-red {
+  color: var(--accent1);
+  font-weight: bold;
+}
+
+/* ========================================================
+   引用
+======================================================== */
+section blockquote {
+  position: relative;
+  z-index: 2;
+  border-left: 4px solid #a8a8a8;
+  padding: 12px 20px;
+  margin: 12px 0;
+  background: #f3f3f3;
+  color: var(--text);
+  font-size: 26px;
+}
+
+section .footnote {
+  position: absolute;
+  left: 90px;
+  right: 55px;
+  bottom: 34px;
+  z-index: 2;
+  font-size: 10pt;
+  line-height: 1.35;
+  color: rgba(73, 73, 73, 0.72);
+  margin: 0;
+}
+
+/* ========================================================
+   画像
+======================================================== */
+section img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* ========================================================
+   タイトルスライド  （_class: title）
+======================================================== */
+section.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+}
+
+/* 左下 ＋ 右上に大きな三角形クラスタを表示 */
+section.title::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background-image:
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCI+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgMTk3LjMsMTY5LjggMCwxNjkuOCIgZmlsbD0iIzAwOTZGRiIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4NC4xLDU3Ny43KSByb3RhdGUoNjYuMjcpIHRyYW5zbGF0ZSgtOTguNjUsLTg0LjkwKSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMCwwIDE5My45LDE4NC41IDAsMTg0LjUiIGZpbGw9IiNFNjFDMTAiIGZpbGwtb3BhY2l0eT0iMC42OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODQuMSw2NDcuMikgcm90YXRlKDM0OC45OCkgdHJhbnNsYXRlKC05Ni45NSwtOTIuMjUpIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgMTM2LjEsMTc0LjMgMCwxNzQuMyIgZmlsbD0iI0ZGRDQ3OCIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjguNCw2MDYuMykgcm90YXRlKDMyNi41NSkgdHJhbnNsYXRlKC02OC4wNSwtODcuMTUpIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgMjE4LjgsMjQxLjggMCwyNDEuOCIgZmlsbD0iI0ZGRDQ3OCIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjA4LjcsNzIuMSkgcm90YXRlKDE1NS41NSkgdHJhbnNsYXRlKC0xMDkuNDAsLTEyMC45MCkiLz4KICA8cG9seWdvbiBwb2ludHM9IjAsMCAxOTcuMywxNjkuOCAwLDE2OS44IiBmaWxsPSIjMDA5NkZGIiBmaWxsLW9wYWNpdHk9IjAuNjkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExOTEuMywxMjguOSkgcm90YXRlKDIxNC4wOCkgdHJhbnNsYXRlKC05OC42NSwtODQuOTApIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgMTkzLjksMTg0LjUgMCwxODQuNSIgZmlsbD0iI0U2MUMxMCIgZmlsbC1vcGFjaXR5PSIwLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTQzLjQsMTE0LjEpIHJvdGF0ZSgxNzUuOTQpIHRyYW5zbGF0ZSgtOTYuOTUsLTkyLjI1KSIvPgo8L3N2Zz4=");
+
+  background-size: 1280px 720px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+/* タイトルスライドではページ番号を非表示 */
+section.title::after {
+  display: none;
+}
+
+/* タイトルスライドの h1 は中央寄せ・絶対配置解除 */
+section.title h1 {
+  position: static;
+  font-size: 44px;
+  font-family: var(--font-title);
+  color: var(--text);
+  text-align: center;
+  margin: 0 0 32px;
+  padding: 0;
+  max-width: 85%;
+  white-space: normal;
+  overflow: visible;
+  z-index: 2;
+  border: none;
+}
+
+section.title p,
+section.title h2 {
+  position: static;
+  z-index: 2;
+  font-size: 28px;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-weight: normal;
+}
+
+section.title h2::before {
+  content: none;
+}
+
+/* ========================================================
+   セクション見出しスライド  （_class: section）
+======================================================== */
+section.section {
+  background-color: var(--section-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 55px 80px 75px;
+}
+
+section.section::before {
+  display: none;
+}
+
+section.section h1 {
+  position: static;
+  font-size: 44px;
+  font-family: var(--font-title);
+  color: var(--text);
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  white-space: normal;
+  overflow: visible;
+  z-index: 2;
+  border: none;
+}
+
+section.section p {
+  font-size: 24px;
+  color: rgba(73, 73, 73, 0.75);
+  margin: 14px 0 0;
+  z-index: 2;
+}
+
+/* ========================================================
+   2カラムレイアウト  （_class: cols）
+======================================================== */
+section.cols {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0 32px;
+  padding-top: 116px;
+}
+
+section.cols h1 {
+  width: 100%;
+}
+
+section.cols > .col {
+  width: calc(50% - 16px);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+section.cols > .col h2 {
+  margin-bottom: 16px;
+}
+
+section.cols > .col .marp-box,
+section.cols > .col .marp-callout {
+  display: block;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+section.cols p,
+section.cols ul,
+section.cols ol {
+  width: calc(50% - 16px);
+  box-sizing: border-box;
+}
+
+section.cols > .col ul,
+section.cols > .col ol {
+  width: auto;
+}
+
+section.cols p:has(img) {
+  margin-bottom: 48px;
+}
+
+section.cols p:has(img) img {
+  max-height: 360px;
+  object-fit: contain;
+}
+
+/* ========================================================
+   画像付きレイアウト
+======================================================== */
+section.text-image {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  padding-top: 116px;
+}
+
+section.text-image .text-main,
+section.text-image .image-support,
+section.image-message .image-wide,
+section.image-message .message {
+  position: relative;
+  z-index: 2;
+}
+
+section.text-image .text-main,
+section.text-image .image-support {
+  width: calc(50% - 18px);
+  box-sizing: border-box;
+}
+
+section.text-image .text-main p {
+  font-size: 26px;
+  line-height: 1.55;
+}
+
+section.text-image .image-support {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.text-image .image-support img {
+  width: 100%;
+  max-height: 390px;
+  object-fit: contain;
+}
+
+section.image-message {
+  display: flex;
+  flex-direction: column;
+}
+
+section.image-message .image-wide {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 410px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+section.image-message .image-wide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+section.image-message .message {
+  font-size: 30px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ========================================================
+   ボックス・吹き出し
+   使い方: <div class="marp-box marp-box-blue">テキスト</div>
+======================================================== */
+
+/* 共通: ちょっと角が丸い四角形 */
+.marp-box {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.marp-box-blue {
+  background: rgba(173, 216, 240, 0.55);
+  border: 1.5px solid rgba(80, 160, 210, 0.7);
+}
+
+.marp-box-yellow {
+  background: rgba(255, 235, 160, 0.55);
+  border: 1.5px solid rgba(210, 175, 80, 0.7);
+}
+
+/* 透過率70%の四角形（角丸なし） */
+.marp-box-pink {
+  display: inline-block;
+  background: rgba(220, 120, 110, 0.30);
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* 吹き出し（下向きの尾） */
+.marp-callout {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.marp-callout::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 14px 10px 0;
+  border-style: solid;
+}
+
+.marp-callout-blue {
+  background: rgba(173, 216, 240, 0.55);
+  border: 1.5px solid rgba(80, 160, 210, 0.7);
+}
+
+.marp-callout-blue::after {
+  border-color: rgba(80, 160, 210, 0.7) transparent transparent;
+}
+
+/* 矢印（フロー図用） */
+.marp-arrow {
+  display: flex;
+  align-self: center;
+  font-size: 28px;
+  color: #888;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* フロー横並びレイアウト */
+.marp-flow {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* フロー縦並び列（吹き出し＋ボックスのスタック用） */
+.marp-flow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}

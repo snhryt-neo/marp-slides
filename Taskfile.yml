@@ -1,0 +1,59 @@
+version: '3'
+
+vars:
+  THEME: theme/enpitsu-choice.css
+  TITLE: ''
+  DIR: ''
+  TITLE_ARG: '{{if .TITLE}}{{.TITLE}}{{else}}{{.CLI_ARGS}}{{end}}'
+  DIR_ARG: '{{if .DIR}}{{.DIR}}{{else}}{{.CLI_ARGS}}{{end}}'
+
+tasks:
+  new:
+    desc: '新しいスライドディレクトリを作成します。使い方: task new -- title'
+    cmds:
+      - |
+        title="{{.TITLE_ARG}}"
+        if [ -z "$title" ]; then
+          echo "Usage: task new -- title" >&2
+          exit 1
+        fi
+        slide_dir="slides/$(TZ=Asia/Tokyo date +%Y%m%d)_$title"
+        mkdir -p "$slide_dir/materials"
+        touch "$slide_dir/materials/.keep"
+        if [ ! -f "$slide_dir/main.md" ]; then
+          cat > "$slide_dir/main.md" <<'EOF'
+        ---
+        marp: true
+        theme: enpitsu-choice
+        size: 16:9
+        paginate: true
+        ---
+
+        <!-- _class: title -->
+
+        # プレゼンテーションタイトル
+
+        発表者名
+
+        ---
+
+        # アジェンダ
+
+        - トピック1
+        - トピック2
+        - トピック3
+        EOF
+        fi
+        echo "Created $slide_dir"
+
+  compile:
+    desc: 'スライドを HTML と PDF にコンパイルします。使い方: task compile -- slides/yyyymmdd_title'
+    cmds:
+      - |
+        slide_dir="{{.DIR_ARG}}"
+        if [ -z "$slide_dir" ]; then
+          echo "Usage: task compile -- slides/yyyymmdd_title" >&2
+          exit 1
+        fi
+        npx @marp-team/marp-cli "$slide_dir/main.md" --theme {{.THEME}} --allow-local-files --html --output "$slide_dir/main.html"
+        npx @marp-team/marp-cli "$slide_dir/main.md" --theme {{.THEME}} --allow-local-files --pdf --output "$slide_dir/main.pdf"
