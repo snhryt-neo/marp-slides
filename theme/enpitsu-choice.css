@@ -384,6 +384,47 @@ section .footnote {
 }
 
 /* ========================================================
+   アノテーション
+   使い方: <div class="annotation">投影限</div>
+======================================================== */
+section .annotation {
+  position: absolute;
+  top: 0;
+  right: 74px;
+  z-index: 4;
+  min-width: 180px;
+  max-width: 360px;
+  min-height: 48px;
+  padding: 9px 24px 10px;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(255, 147, 0, 0.7);
+  border-radius: 8px;
+  background: rgba(255, 212, 120, 0.38);
+  color: #000;
+  font-family: var(--font-title);
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.18;
+  text-align: center;
+}
+
+section .annotation.annotation-red {
+  border-color: rgba(230, 28, 16, 0.7);
+  background: rgba(230, 28, 16, 0.12);
+  color: var(--accent1);
+}
+
+section .annotation.annotation-blue {
+  border-color: rgba(0, 150, 255, 0.7);
+  background: rgba(0, 150, 255, 0.12);
+  color: var(--accent2);
+}
+
+section:has(.annotation) h1 {
+  right: 450px;
+}
+
+/* ========================================================
    画像
 ======================================================== */
 section img {
