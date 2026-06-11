@@ -33,6 +33,8 @@ Dataform Meetup #2 (2026-06-08)
 # 自己紹介
 <!-- _class: profile -->
 
+<div class="annotation">公開予定ver.</div>
+
 <div class="profile-grid">
 <div>
 
@@ -40,6 +42,29 @@ Dataform Meetup #2 (2026-06-08)
 - 日本に200人ぐらいしかいない名字
 - Dataform の呪縛に5年間囚われている人
 - フリーランス
+  - ex マイベスト ← アイデミー ← NTTCom
+
+</div>
+<div>
+  <img class="profile-logo" src="materials/profile_logo.jpg" alt="snhryt ロゴ">
+  <img class="article" src="materials/dataform_article.png" alt="2025年にDataformを使うことへの葛藤などなど">
+</div>
+</div>
+
+---
+
+# 自己紹介
+<!-- _class: profile -->
+
+<div class="annotation">投影ver.</div>
+
+<div class="profile-grid">
+<div>
+
+- 品原 悠杜 ([@snhrytdesu](https://x.com/snhrytdesu))
+- 日本に200人ぐらいしかいない名字
+- Dataform の呪縛に5年間囚われている人
+- <span class="text-red">**無職**</span>
   - ex マイベスト ← アイデミー ← NTTCom
 
 </div>
@@ -74,6 +99,13 @@ Dataform Meetup #2 (2026-06-08)
 
 - 組織によって優先度や重要度は様々あるが、いつか必ず、コストと真面目に向き合わないといけない時がやってくる
 - 特に、社内のデータ活用が一定進んでくると、スプレッドシートのデータコネクタによる野良クエリの発行が横行する
+
+---
+
+# なので、最初から全力でモニタリングの足場を整える
+<!-- _class: big-image -->
+
+![始めから全開だ](materials/start_full_power.png)
 
 ---
 
@@ -340,8 +372,8 @@ options (
 
 ---
 
-<!-- _class: title -->
+<!-- _class: title hire -->
 
-# ご清聴ありがとうございました
+# HIRE ME.
 
 [@snhrytdesu](https://x.com/snhrytdesu)

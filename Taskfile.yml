@@ -47,13 +47,23 @@ tasks:
         echo "Created $slide_dir"
 
   compile:
-    desc: 'スライドを HTML と PDF にコンパイルします。使い方: task compile -- slides/yyyymmdd_title'
+    desc: 'スライドを HTML と PDF にコンパイルします。使い方: task compile -- slides/yyyymmdd_title または slides/yyyymmdd_title/file.md'
     cmds:
       - |
-        slide_dir="{{.DIR_ARG}}"
-        if [ -z "$slide_dir" ]; then
-          echo "Usage: task compile -- slides/yyyymmdd_title" >&2
+        target="{{.DIR_ARG}}"
+        if [ -z "$target" ]; then
+          echo "Usage: task compile -- slides/yyyymmdd_title または slides/yyyymmdd_title/file.md" >&2
           exit 1
         fi
-        npx @marp-team/marp-cli "$slide_dir/main.md" --theme {{.THEME}} --allow-local-files --html --output "$slide_dir/main.html"
-        npx @marp-team/marp-cli "$slide_dir/main.md" --theme {{.THEME}} --allow-local-files --pdf --output "$slide_dir/main.pdf"
+        if [ -d "$target" ]; then
+          input="$target/main.md"
+        else
+          input="$target"
+        fi
+        if [ ! -f "$input" ]; then
+          echo "Markdown file not found: $input" >&2
+          exit 1
+        fi
+        output_base="${input%.md}"
+        npx @marp-team/marp-cli "$input" --theme {{.THEME}} --allow-local-files --html --output "$output_base.html"
+        npx @marp-team/marp-cli "$input" --theme {{.THEME}} --allow-local-files --pdf --output "$output_base.pdf"
