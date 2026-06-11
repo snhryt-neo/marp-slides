@@ -18,15 +18,12 @@ Marp とカスタムテーマ `enpitsu-choice` を使って、Markdown からス
 
 - [Task](https://taskfile.dev/)
 - Node.js / npm
-- `npx` で実行できる `@marp-team/marp-cli`
 
 PDF 出力では Marp CLI が内部でブラウザ実行環境を使います。環境によっては追加の依存関係が必要になる場合があります。
 
-## Installation
+## Setup
 
-今回はリポジトリ固有のインストール手順はありません。
-
-`task` と Node.js / npm が使える状態であれば、`npx @marp-team/marp-cli` 経由でスライドをコンパイルできます。
+なし。`npx @marp-team/marp-cli` 経由でインストールなしで Marp スライドを作成します。
 
 ## Usage
 
