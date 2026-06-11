@@ -2,8 +2,8 @@
 
 .DS_Store
 
-slides/**/main.html
-slides/**/main.pdf
+**/*.html
+**/*.pdf
 
 !slides/_sample/main.html
 !slides/_sample/main.pdf
