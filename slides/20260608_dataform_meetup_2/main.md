@@ -435,9 +435,9 @@ section.hire h1 {
 
 <!-- _class: title -->
 
-# Dataformのリポジトリを立ち上げるときにまずやること
+# Dataformのリポジトリを立ち上げるときに<br>まずやること
 
-品原 悠杜 (@snhrytdesu)  
+品原 悠杜 ([@snhrytdesu](https://x.com/snhrytdesu))
 Dataform Meetup #2 (2026-06-08)
 
 ---
@@ -445,7 +445,7 @@ Dataform Meetup #2 (2026-06-08)
 # 本日話すこと
 <!-- _class: lead -->
 
-- 今年の3月に BigQuery x Dataform でデータ基盤をゼロから立ち上げる機会があった
+- 直近 BigQuery x Dataform でデータ基盤をゼロから立ち上げる機会があった
 - そのときに最初にやっておいてよかったことをご紹介
   - コストモニタリング用mart整備
   - エージェントハーネス
@@ -457,16 +457,16 @@ Dataform Meetup #2 (2026-06-08)
 # 自己紹介
 <!-- _class: profile -->
 
+<div class="annotation">公開予定ver.</div>
+
 <div class="profile-grid">
 <div>
 
-- 品原 悠杜 (@snhrytdesu)
+- 品原 悠杜 ([@snhrytdesu](https://x.com/snhrytdesu))
 - 日本に200人ぐらいしかいない名字
-- Dataform の呪縛に囚われている人 ↓
+- Dataform の呪縛に5年間囚われている人
 - フリーランス
   - ex マイベスト ← アイデミー ← NTTCom
-
-<span class="version">公開予定ver.</span>
 
 </div>
 <div>
@@ -480,16 +480,16 @@ Dataform Meetup #2 (2026-06-08)
 # 自己紹介
 <!-- _class: profile -->
 
+<div class="annotation">投影ver.</div>
+
 <div class="profile-grid">
 <div>
 
-- 品原 悠杜 (@snhrytdesu)
+- 品原 悠杜 ([@snhrytdesu](https://x.com/snhrytdesu))
 - 日本に200人ぐらいしかいない名字
-- Dataform の呪縛に囚われている人 ↓
-- 無職
+- Dataform の呪縛に5年間囚われている人
+- <span class="text-red">**無職**</span>
   - ex マイベスト ← アイデミー ← NTTCom
-
-<span class="version">投影ver.</span>
 
 </div>
 <div>
@@ -504,8 +504,10 @@ Dataform Meetup #2 (2026-06-08)
 <!-- _class: lead -->
 
 - 当たり前ですが）BigQuery x Dataform でデータ基盤を構築する前提
+<br>
 - 開発環境として Dataform CLI を使ったローカル主体の環境を想定
 - クラウド版の IDE を使って開発している方は？→ 今すぐ CLI に乗り換えましょう 🏃🏃🏃🏃🏃🏃
+<br>
 - ハーネスの定義は諸説あるので、「AIで開発するための足回りの話」ぐらいの心づもりでお聞きいただけると幸いです m(_ _)m
 
 ---
@@ -538,10 +540,10 @@ Dataform Meetup #2 (2026-06-08)
   - date x user_email
   - date x referenced_tables
   - query (topN)
-- しかし、これだと足りないことが多い。最初から以下をBQに連携しておこう
+- しかし、これだけでは不十分なことが多い。最初から以下を BigQuery に連携しておきたい
   - Cloud Audit Logs: スプシのデータコネクトによる課金がシートURL単位でモニタリングできるようになる
   - user_email から所属への変換用テーブル: 所属ごとに集約して利用傾向が追えるようになる
-    - 注意：このテーブルを最新化する運用には人事部門などの協力が必須。調整ファイト
+    - ただし、このテーブルを最新化する運用には人事部門などの後ろ盾が必要。調整ファイト💪🏿
 
 ---
 
@@ -552,18 +554,19 @@ Dataform Meetup #2 (2026-06-08)
 
 ---
 
-# tips1: INFORMATION_SCHEMA の日次スナップショット保管も検討を
+# tips1: INFORMATION_SCHEMA の日次スナップショット保管
 <!-- _class: snapshot-split -->
 
 <div class="snapshot-wrap">
 <div>
 
-- Dataform でモデリングして、INFORMATION_SCHEMA は日次スナップショットをパーティショニングテーブルとして保管するようにした
+- コストが許すなら、INFORMATION_SCHEMA の日次スナップショットをとっておくと便利。特に以下はおすすめ
+<br>
 - `JOBS`
-  - 情報の宝庫
-  - 180日までしか履歴が遡れないので、コストが許すなら永続化する
+  - 情報の宝庫🪎
+  - 180日前までしか履歴が遡れないので、コストが許すなら永続化する
 - `TABLE_STORAGE`
-  - 最新データのみで履歴が追えない
+  - デフォルトではその時点のデータのみで履歴が追えない
   - 履歴があるとストレージコストの増分試算に便利
 
 </div>
@@ -668,6 +671,7 @@ options (
 <span class="comment comment-blue"># クエリ結果の出力形式を JSON に固定</span>
 --format=json
 --location=asia-northeast1
+<br>
 [query]
 --use_legacy_sql=false
 <span class="comment comment-yellow"># 出力行数の upper</span>
@@ -676,7 +680,7 @@ options (
 --maximum_bytes_billed=100000000</code></pre>
   </div>
   <div class="bqrc-panel">
-    <div class="bqrc-format-note">`--format` の指定値はこれだけ</div>
+    <div class="bqrc-format-note">`--format` で指定できるもの</div>
     <img class="bqrc-format-img" src="materials/bq_format_help.png" alt="bq query の --format 説明">
   </div>
 </div>
@@ -689,14 +693,14 @@ options (
 - 色々な INFORMATION_SCHEMA を join して、テーブル毎の指標を集約したワイドテーブルを Dataform でモデリングしておく
   - レコード数 / ストレージサイズ
   - freshness
-  - 直近 30 日の ジョブ実行回数 / クエリコスト / ジョブ実行ユーザーtopN
+  - 直近 30 日の ジョブ実行回数 / クエリコスト / ジョブ実行ユーザー topN
   - カラム description 充填率
   - 推奨事項 (INFORMATION_SCHEMA.RECOMMENDATIONS)
   - etc.
-- `make report` := `make query “select * from table_report”` のように wrap しておくといろいろ便利
-  - `make query` の前にチェック
-  - エージェントスキル化して、特定テーブルの健全性レポートを html 出力
-  - 「table_report の推奨事項があるテーブルを改善するPR書いて」で丸投げ
+- `make report テーブル名` := `make query “select * from table_report where table_id = 'テーブル名'”` のように wrap しておくと、人間にとっても AI にとっても便利
+  - `make query` の前にチェックを挟む
+  - エージェントスキル化して、特定テーブルの健全性レポートを HTML 出力
+  - 「`table_report` の推奨事項があるテーブルを改善する PR 書いて」で
 
 ---
 
@@ -713,7 +717,7 @@ options (
 
 - `.sqlfluff` に SQL のコーディングスタイルを記述
 - pre-commit や GitHub Actions などで強制適用する
-- @hiracky16 さん作の sqlfluff-templater-dataform があるので是非！
+- [@hiracky16](https://x.com/hiracky16) さん作の sqlfluff-templater-dataform があるので是非！
 
 </div>
 
@@ -729,6 +733,7 @@ options (
 <div class="text-main">
 
 - リネームする前の古いテーブルが残りっぱなしで、社内から「更新止まってるみたいなんですけど」と問い合わせが来た経験はありませんか？
+<br>
 - 残念ながら、Dataform には、モデル側の変更に追従して BigQuery 側のリソースを自動でリネーム・削除してくれる仕組みがない
 - 自作しましょう
 - リネーム・削除を検知してPR内で予告をだし、マージ後に BigQuery 側のリソース削除を実施する Action →
@@ -748,7 +753,8 @@ options (
 
 - Dataform Cloud でワークフローを動かす場合、ワークフローの設定はモデリングとは別で管理する必要がある → tag 新設時のスケジューラ設定漏れなどが起こりやすい
 - 手動はブルシット。かといって、Terraform にワークフローの責務は持たせたくない
-- → JSON ファイル 1 つでクラウド側に設定を自動反映する GitHub Actions を公開しています！（宣伝）
+<br>
+- **JSON ファイル 1 つでクラウド側に設定を自動反映する GitHub Actions を公開しています！（宣伝）**
 
 </div>
 
@@ -780,7 +786,7 @@ options (
 
 ---
 
-# 諸々取り入れたリポジトリテンプレートを公開しました（近日公開予定）
+# 諸々取り入れたリポジトリテンプレートを~~公開しました~~ 近日公開予定
 <!-- _class: repository -->
 
 <div class="repo-grid">
@@ -792,6 +798,6 @@ options (
 
 <!-- _class: title hire -->
 
-# I’m for hire!
+# HIRE ME.
 
-@snhrytdesu
+[@snhrytdesu](https://x.com/snhrytdesu)
