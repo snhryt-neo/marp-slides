@@ -32,6 +32,7 @@
 - 右画像・左テキストのレイアウトは `<!-- _class: text-image -->`、本文側は `text-main`、画像側は `image-support` を使う。
 - 上画像・下メッセージのレイアウトは `<!-- _class: image-message -->`、画像側は `image-wide`、下部メッセージは `message` を使う。
 - 画像素材は各スライドディレクトリの `materials/` 配下に置き、Markdown からは `materials/icon.jpg` のような相対パスで参照する。
+- スライド個別の CSS が必要な場合は、`main.md` に長い `<style>` を直接埋め込まず、同じスライドディレクトリに `deck.css` などの外部 CSS として切り出す。`main.md` 側では `<style>@import url("./deck.css");</style>` のように参照だけを書く。
 
 ## テキスト・装飾ルール
 - 基本文字は Tsukushi A Round Gothic Regular を前提にする。
