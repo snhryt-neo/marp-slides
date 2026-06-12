@@ -513,6 +513,10 @@ section.section::before {
   display: none;
 }
 
+section.section::after {
+  display: none;
+}
+
 section.section h1 {
   position: static;
   font-size: 44px;

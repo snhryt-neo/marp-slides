@@ -36,9 +36,9 @@ Dataform Meetup #2 (2026-06-08)
 <div class="profile-grid">
 <div>
 
-- 品原 悠杜 ([@snhrytdesu](https://x.com/snhrytdesu))
+- 品原 悠杜 (@snhrytdesu)
 - 日本に200人ぐらいしかいない名字
-- Dataform の呪縛に5年間囚われている人
+- Dataform の[呪縛](https://zenn.dev/mybest_dev/articles/9a1d3312213dca)に5年間囚われている人
 - フリーランス
   - ex マイベスト ← アイデミー ← NTTCom
 
@@ -106,10 +106,10 @@ Dataform Meetup #2 (2026-06-08)
 
 - コストが許すなら、INFORMATION_SCHEMA の日次スナップショットをとっておくと便利。特に以下はおすすめ
 <br>
-- `JOBS`
+- [`JOBS`](https://docs.cloud.google.com/bigquery/docs/information-schema-jobs?hl=ja)
   - 情報の宝庫🪎
   - 180日前までしか履歴が遡れないので、コストが許すなら永続化する
-- `TABLE_STORAGE`
+- [`TABLE_STORAGE`](https://docs.cloud.google.com/bigquery/docs/information-schema-table-storage?hl=ja)
   - デフォルトではその時点のデータのみで履歴が追えない
   - 履歴があるとストレージコストの増分試算に便利
 
@@ -199,7 +199,7 @@ options (
 - AI に自律してクエリを書かせようと思ったら、コードベースだけではなく、既存のテーブルの中身も見て開発させたい → `bq query`
 - ただし、ノーガードでクエリを叩かせると、BigQuery 側のコスト観点や、AI 側のトークン消費観点で懸念がある
 - `make query` のようにショートカットを定義する
-  - .bigqueryrc で最大サイズや出力フォーマットを固定してリポジトリ管理
+  - [`.bigqueryrc`](https://docs.cloud.google.com/bigquery/docs/reference/bq-cli-reference?hl=ja#how_to_add_flags_to_bigqueryrc) で最大サイズや出力フォーマットを固定してリポジトリ管理
   - デフォルトでは $HOME のファイルを見に行くので、向き先をリポジトリに強制するために`make query` = `bq query --bigqueryrc .bigueryrc “SQL”` のようにwrapする
   - その上で、settings.json で `Bash(bq query*)` を deny しておく（Claude Code の場合）
 
@@ -229,6 +229,8 @@ options (
   </div>
 </div>
 
+<p class="footnote">画像出典: https://docs.cloud.google.com/bigquery/docs/reference/bq-cli-reference?hl=ja#global_flags</p>
+
 ---
 
 # テーブルメタデータの mart を作っておくとより便利
@@ -239,7 +241,7 @@ options (
   - freshness
   - 直近 30 日の ジョブ実行回数 / クエリコスト / ジョブ実行ユーザー topN
   - カラム description 充填率
-  - 推奨事項 (INFORMATION_SCHEMA.RECOMMENDATIONS)
+  - 推奨事項 ([`INFORMATION_SCHEMA.RECOMMENDATIONS`](https://docs.cloud.google.com/bigquery/docs/information-schema-recommendations?hl=ja))
   - etc.
 - `make report テーブル名` := `make query “select * from table_report where table_id = 'テーブル名'”` のように wrap しておくと、人間にとっても AI にとっても便利
   - `make query` の前にチェックを挟む
@@ -254,14 +256,14 @@ options (
 
 ---
 
-# SQLFluff でコーディングスタイル強制を統一
+# SQLFluff でコーディングスタイルを統一
 <!-- _class: text-image screenshot compact -->
 
 <div class="text-main">
 
 - `.sqlfluff` に SQL のコーディングスタイルを記述
 - pre-commit や GitHub Actions などで強制適用する
-- [@hiracky16](https://x.com/hiracky16) さん作の sqlfluff-templater-dataform があるので是非！
+- @hiracky16 さん作の [sqlfluff-templater-dataform](https://github.com/hiracky16/sqlfluff-templater-dataform) があるので是非！
 
 </div>
 
@@ -298,7 +300,7 @@ options (
 - Dataform Cloud でワークフローを動かす場合、ワークフローの設定はモデリングとは別で管理する必要がある → tag 新設時のスケジューラ設定漏れなどが起こりやすい
 - 手動はブルシット。かといって、Terraform にワークフローの責務は持たせたくない
 <br>
-- **JSON ファイル 1 つでクラウド側に設定を自動反映する GitHub Actions を公開しています！（宣伝）**
+- **JSON ファイル 1 つでクラウド側に設定を自動反映する [GitHub Actions](https://github.com/snhryt-neo/apply-dataform-workflows) を公開しています！（宣伝）**
 
 </div>
 
